@@ -1,0 +1,27 @@
+{% extends 'bookings/base.html' %}
+
+{% block title %}Crear/Editar Reserva{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        {% if object %}Edit Reserva: {{ object.nombre }}{% else %}New Reserva{% endif %}
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                            <a href="{% url 'reserva-list' %}">Cancelar</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -174,4 +174,44 @@ def create_user(request):
         form = CustomUserCreationForm()
     return render(request, 'bookings/create_user.html', {'form': form})
 
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Sala, Reserva
+from .forms import SalaForm, ReservaForm
+
+def reserva_list(request):
+    reservas = Reserva.objects.all()
+    return render(request, 'bookings/lista_reservas.html', {'reservas': reservas})
+
+def reserva_detail(request, pk):
+    reserva = get_object_or_404(Reserva, pk=pk)
+    return render(request, 'bookings/detalle_reserva.html', {'reserva': reserva})
+
+def reserva_create(request):
+    if request.method == 'POST':
+        form = ReservaForm(request.POST)
+        if form.is_valid():
+            reserva = form.save()
+            return redirect('reserva-detail', pk=reserva.pk)
+    else:
+        form = ReservaForm()
+    return render(request, 'bookings/form_reserva.html', {'form': form})
+
+def reserva_update(request, pk):
+    reserva = get_object_or_404(Reserva, pk=pk)
+    if request.method == 'POST':
+        form = ReservaForm(request.POST, instance=reserva)
+        if form.is_valid():
+            reserva = form.save()
+            return redirect('reserva-detail', pk=reserva.pk)
+    else:
+        form = ReservaForm(instance=reserva)
+    return render(request, 'bookings/form_reserva.html', {'form': form})
+
+def reserva_delete(request, pk):
+    reserva = get_object_or_404(Reserva, pk=pk)
+    if request.method == 'POST':
+        reserva.delete()
+        return redirect('reserva-list')
+    return render(request, 'bookings/confirm_delete_reserva.html', {'object': reserva})
+
 

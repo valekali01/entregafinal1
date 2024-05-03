@@ -17,6 +17,11 @@ from .views import (
     # Clase 25
     # ------------------------------------------------------------------------
     avatar_view,
+    reserva_list, 
+    reserva_detail, 
+    reserva_create, 
+    reserva_update, 
+    reserva_delete,
 )
 
 urlpatterns = [
@@ -35,6 +40,12 @@ urlpatterns = [
     # Clase 25
     # ------------------------------------------------------------------------
     path('avatar/add/', avatar_view, name='avatar_add'),
+    path('reservas/', reserva_list, name='reserva-list'),
+    path('reservas/<int:pk>/', reserva_detail, name='reserva-detail'),
+    path('reservas/create/', reserva_create, name='reserva-create'),
+    path('reservas/<int:pk>/update/', reserva_update, name='reserva-update'),
+    path('reservas/<int:pk>/delete/', reserva_delete, name='reserva-delete'),
+    
 ]
 
 

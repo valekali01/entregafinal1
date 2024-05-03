@@ -42,5 +42,18 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'password1', 'password2']
+        from django import forms
+from .models import Sala, Reserva
+
+class SalaForm(forms.ModelForm):
+    class Meta:
+        model = Sala
+        fields = '__all__'
+
+class ReservaForm(forms.ModelForm):
+    class Meta:
+        model = Reserva
+        fields = '__all__'
+
 
 
